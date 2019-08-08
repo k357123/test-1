@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .R1 {
+            border-radius: 5px;
+            color: red;
+        }
+
+        .R2 {
+            border-radius: 5px;
+            color: green;
+        }
+
+        .R3 {
+            border-radius: 5px;
+            color: blue;
+        }
+
+        #s1 {
+            width: 400px;
+            height: 400px;
+            text-align: center;
+            line-height: 400px;
+            font-size: 35px;
+        }
+
+        #s2 {
+            position: relative;
+            left: 13rem;
+            bottom: 7.5rem;
+        }
+
+        #s3 {
+            position: relative;
+            left: 13rem;
+            bottom: 7.5rem;
+        }
+
+        #s10 {
+            width: 60px;
+            background-color: peachpuff;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            left: 450px;
+            bottom: 185px;
+        }
+
+        #s11 {
+            width: 60px;
+            background-color: peachpuff;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            left: 450px;
+            bottom: 140px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="s1"></div>
+    <input class="R1" type="button" value="R" onclick="R_enter()">
+    <input id="move1" type="range" min="0" max="255" step="1" oninput="Rchange(this.value)">
+    <br>
+
+    <input class="R2 " type="button" value="G" onclick="G_enter()">
+    <input id="move2" type="range" min="0" max="255" step="1" oninput="Gchange(this.value)">
+
+    <br>
+
+    <input class="R3" type="button" value="B" onclick="B_enter()">
+    <input id="move3" type="range" min="0" max="255" step="1" oninput="Bchange(this.value)">
+
+    <br>
+    <br>
+    <input id="btn4" type="button" value="？">
+    <input id="btn5" type="button" onmousedown="add()" onmouseup="stopadd()" onmouseout="stopadd()" value="＋">
+    <input id="btn6" type="button" onmousedown="sub()" onmouseup="stopsub()" onmouseout="stopsub()" value="－">
+
+    <div id="s2">
+        <input id="textID" type="text" size="12">
+        <input type="button" value="點我複製" onclick="Copy1()">
+    </div>
+    <br>
+    <div id="s3">
+        <input id="textID1" type="text" size="12">
+        <input type="button" value="點我複製" onclick="Copy2()">
+    </div>
+    <div id="s10" style="display:none;">已複製</div>
+    <div id="s11" style="display:none;">已複製</div>
+
+    <script>
+        var s1ID = document.getElementById("s1");//獲取s1ID
+        var tag = document.getElementsByTagName("input");//獲取input標籤
+        var move1ID = document.getElementById('move1');
+        var move2ID = document.getElementById('move2');
+        var move3ID = document.getElementById('move3');
+
+        //F5更新,隨機color
+        var R = Math.floor(Math.random() * 256);
+        var G = Math.floor(Math.random() * 256);
+        var B = Math.floor(Math.random() * 256);
+        move1ID.value = R;
+        move2ID.value = G;
+        move3ID.value = B;
+        s1ID.style.backgroundColor = `rgb(${R},${G},${B})`;
+        s1ID.style.color = `rgb(${255 - R},${255 - G},${255 - B})`;
+        document.getElementById("textID").value = `rgb(${R},${G},${B})`;
+        var Ten1 = parseInt(R);
+        var Ten2 = parseInt(G);
+        var Ten3 = parseInt(B);
+        var Sixteen1 = Ten1.toString(16);
+        var Sixteen2 = Ten2.toString(16);
+        var Sixteen3 = Ten3.toString(16);
+        if (Ten1 < 16) Sixteen1 = "0" + Sixteen1;
+        if (Ten2 < 16) Sixteen2 = "0" + Sixteen2;
+        if (Ten3 < 16) Sixteen3 = "0" + Sixteen3;
+        s1ID.textContent = "#" + Sixteen1 + Sixteen2 + Sixteen3;
+        document.getElementById("textID1").value = `#${Sixteen1}` + `${Sixteen2}` + `${Sixteen3}`;
+        //s1ID.textContent=`#${Sixteen1}`+`${Sixteen2}`+`${Sixteen3}`
+
+        function Copy1() {
+
+            var Copycolor = document.getElementById("textID");
+            Copycolor.select(); // 選擇物件
+            document.execCommand('copy'); // 執行瀏覽器複製命令
+            document.getElementById("s10").style.display = "block"
+            setTimeout(function () {
+                document.getElementById("s10").style.display = "none"
+            }, 500);
+        }
+        function Copy2() {
+
+            var Copycolor = document.getElementById("textID1");
+            Copycolor.select(); // 選擇物件
+            document.execCommand('copy'); // 執行瀏覽器複製命令
+            document.getElementById("s11").style.display = "block"
+            setTimeout(function () {
+                document.getElementById("s11").style.display = "none"
+            }, 500);
+        }
+
+        //按鈕隨機color
+        document.getElementById("btn4").onmousedown = function () {
+            var R = Math.floor(Math.random() * 256);
+            var G = Math.floor(Math.random() * 256);
+            var B = Math.floor(Math.random() * 256);
+            move1ID.value = R;
+            move2ID.value = G;
+            move3ID.value = B;
+            s1ID.style.backgroundColor = `rgb(${R},${G},${B})`;
+            s1ID.style.color = `rgb(${255 - R},${255 - G},${255 - B})`;
+            document.getElementById("textID").value = `rgb(${R},${G},${B})`;
+            var Ten1 = parseInt(R);
+            var Ten2 = parseInt(G);
+            var Ten3 = parseInt(B);
+            var Sixteen1 = Ten1.toString(16);
+            var Sixteen2 = Ten2.toString(16);
+            var Sixteen3 = Ten3.toString(16);
+            if (Ten1 < 16) Sixteen1 = "0" + Sixteen1;
+            if (Ten2 < 16) Sixteen2 = "0" + Sixteen2;
+            if (Ten3 < 16) Sixteen3 = "0" + Sixteen3;
+            s1ID.textContent = "#" + Sixteen1 + Sixteen2 + Sixteen3;
+            document.getElementById("textID1").value = `#${Sixteen1}` + `${Sixteen2}` + `${Sixteen3}`;
+        }
+
+        //＋
+        var id;
+        function add() {
+            id = setInterval(addkeep, 10);
+            function addkeep() {
+                R = Number(tag[1].value);
+                G = Number(tag[3].value);
+                B = Number(tag[5].value);
+                if (R == 255) var R = Number(tag[1].value);
+                if (G == 255) var G = Number(tag[3].value);
+                if (B == 255) var B = Number(tag[5].value);
+                if (R < 255) var R = Number(tag[1].value) + 1;
+                if (G < 255) var G = Number(tag[3].value) + 1;
+                if (B < 255) var B = Number(tag[5].value) + 1;
+                move1ID.value = R;
+                move2ID.value = G;
+                move3ID.value = B;
+                s1ID.style.backgroundColor = `rgb(${R},${G},${B})`;
+                document.getElementById("textID").value = `rgb(${move1ID.value},${move2ID.value},${move3ID.value})`
+                s1ID.style.color = `rgb(${255 - Number(R)},${255 - Number(G)},${255 - Number(B)})`;
+                var ten1 = parseInt(R, 10);
+                var ten2 = parseInt(G, 10);
+                var ten3 = parseInt(B, 10);
+                var sixteen1 = ten1.toString(16);
+                var sixteen2 = ten2.toString(16);
+                var sixteen3 = ten3.toString(16);
+                if (ten1 < 16) sixteen1 = "0" + sixteen1;
+                if (ten2 < 16) sixteen2 = "0" + sixteen2;
+                if (ten3 < 16) sixteen3 = "0" + sixteen3;
+                s1ID.textContent = "#" + sixteen1 + sixteen2 + sixteen3;
+                document.getElementById("textID1").value = "#" + sixteen1 + sixteen2 + sixteen3;
+            }
+        }
+        function stopadd() {
+            clearInterval(id);
+        }
+        //－
+        function sub() {
+            id = setInterval(subkeep, 10);
+            function subkeep() {
+                var R = Number(tag[1].value);
+                var G = Number(tag[3].value);
+                var B = Number(tag[5].value);
+                if (R == 0) var R = Number(tag[1].value);
+                if (G == 0) var G = Number(tag[3].value);
+                if (B == 0) var B = Number(tag[5].value);
+                if (R > 0) var R = Number(tag[1].value) - 1;
+                if (G > 0) var G = Number(tag[3].value) - 1;
+                if (B > 0) var B = Number(tag[5].value) - 1;
+                move1ID.value = R;
+                move2ID.value = G;
+                move3ID.value = B;
+                s1ID.style.backgroundColor = `rgb(${R},${G},${B})`;
+                document.getElementById("textID").value = `rgb(${move1ID.value},${move2ID.value},${move3ID.value})`
+                s1ID.style.color = `rgb(${255 - Number(R)},${255 - Number(G)},${255 - Number(B)})`;
+                var ten1 = parseInt(R);
+                var ten2 = parseInt(G);
+                var ten3 = parseInt(B);
+                var sixteen1 = ten1.toString(16);
+                var sixteen2 = ten2.toString(16);
+                var sixteen3 = ten3.toString(16);
+                if (ten1 < 16) sixteen1 = "0" + sixteen1;
+                if (ten2 < 16) sixteen2 = "0" + sixteen2;
+                if (ten3 < 16) sixteen3 = "0" + sixteen3;
+                s1ID.textContent = "#" + sixteen1 + sixteen2 + sixteen3;
+                document.getElementById("textID1").value = "#" + sixteen1 + sixteen2 + sixteen3;
+            }
+        }
+        function stopsub() {
+            clearInterval(id);
+        }
+
+        function R_enter() {
+            if (ans = prompt("請輸入0~255", "大俠拜託輸入數字")) {
+                if (ans >= 0 && ans < 256) {
+                    s1ID.style.backgroundColor = `rgb(${ans},${tag[3].value},${tag[5].value})`;
+                    s1ID.style.color = `rgb(${255 - ans},${255 - tag[3].value},${255 - tag[5].value})`;
+                    document.getElementById("textID").value = `rgb(${ans},${tag[3].value},${tag[5].value})`;
+                    move1ID.value = ans;
+                    move2ID.value = tag[3].value;
+                    move3ID.value = tag[5].value;
+                    var ten1 = parseInt(ans);
+                    var ten2 = parseInt(tag[3].value);
+                    var ten3 = parseInt(tag[5].value);
+                    var sixteen1 = ten1.toString(16);//16進位
+                    var sixteen2 = ten2.toString(16);
+                    var sixteen3 = ten3.toString(16);
+                    if (ten1 < 16) sixteen1 = "0" + sixteen1;
+                    if (ten2 < 16) sixteen2 = "0" + sixteen2;
+                    if (ten3 < 16) sixteen3 = "0" + sixteen3;
+                    s1ID.textContent = "#" + sixteen1 + sixteen2 + sixteen3;
+                    document.getElementById("textID1").value = "#" + sixteen1 + sixteen2 + sixteen3;
+                }
+                else {
+                    alert("error,重新輸入");
+                }
+            }
+            else {
+                window.event.returnValue = false;
+            }
+        }
+
+        function G_enter() {
+            if (ans = prompt("請輸入0~255")) {
+                s1ID.style.backgroundColor = `rgb(${tag[1].value},${ans},${tag[5].value})`;
+                s1ID.style.color = `rgb(${255 - tag[3].value},${255 - ans},${255 - tag[5].value})`;
+                document.getElementById("textID").value = `rgb(${tag[1].value},${ans},${tag[5].value})`;
+                move1ID.value = tag[1].value;
+                move2ID.value = ans;
+                move3ID.value = tag[5].value;
+                var ten1 = parseInt(tag[1].value);
+                var ten2 = parseInt(ans);
+                var ten3 = parseInt(tag[5].value);
+                var sixteen1 = ten1.toString(16);
+                var sixteen2 = ten2.toString(16);
+                var sixteen3 = ten3.toString(16);
+                if (ten1 < 16) sixteen1 = "0" + sixteen1;
+                if (ten2 < 16) sixteen2 = "0" + sixteen2;
+                if (ten3 < 16) sixteen3 = "0" + sixteen3;
+                s1ID.textContent = "#" + sixteen1 + sixteen2 + sixteen3;
+                document.getElementById("textID1").value = "#" + sixteen1 + sixteen2 + sixteen3;
+            }
+            else {
+                window.event.returnValue = false;
+            }
+        }
+        function B_enter() {
+            if (ans = prompt("請輸入0~255")) {
+                s1ID.style.backgroundColor = `rgb(${tag[1].value},${tag[3].value},${ans})`;
+                s1ID.style.color = `rgb(${255 - tag[1].value},${255 - tag[3].value},${255 - ans})`;
+                document.getElementById("textID").value = `rgb(${tag[1].value},${tag[3].value},${ans})`;
+                move1ID.value = tag[1].value;
+                move2ID.value = tag[3].value;
+                move3ID.value = ans;
+                var ten1 = parseInt(tag[1].value);
+                var ten2 = parseInt(tag[3].value);
+                var ten3 = parseInt(ans);
+                var sixteen1 = ten1.toString(16);
+                var sixteen2 = ten2.toString(16);
+                var sixteen3 = ten3.toString(16);
+                if (ten1 < 16) sixteen1 = "0" + sixteen1;
+                if (ten2 < 16) sixteen2 = "0" + sixteen2;
+                if (ten3 < 16) sixteen3 = "0" + sixteen3;
+                s1ID.textContent = "#" + sixteen1 + sixteen2 + sixteen3;
+                document.getElementById("textID1").value = "#" + sixteen1 + sixteen2 + sixteen3;
+            }
+            else {
+                window.event.returnValue = false;
+            }
+        }
+
+        function Rchange() {
+            s1ID.style.backgroundColor = `rgb(${tag[1].value},${tag[3].value},${tag[5].value})`;
+            s1ID.style.color = `rgb(${255 - tag[1].value},${255 - tag[3].value},${255 - tag[5].value})`;
+            document.getElementById("textID").value = `rgb(${tag[1].value},${tag[3].value},${tag[5].value})`;
+            var ten1 = parseInt(`${tag[1].value}`);
+            var ten2 = parseInt(`${tag[3].value}`);
+            var ten3 = parseInt(`${tag[5].value}`);
+            var sixteen1 = ten1.toString(16);//16進位
+            var sixteen2 = ten2.toString(16);
+            var sixteen3 = ten3.toString(16);
+            if (ten1 < 16) sixteen1 = "0" + sixteen1;
+            if (ten2 < 16) sixteen2 = "0" + sixteen2;
+            if (ten3 < 16) sixteen3 = "0" + sixteen3;
+            s1ID.textContent = `#${sixteen1}` + `${sixteen2}` + `${sixteen3}`;
+            document.getElementById("textID1").value = "#" + sixteen1 + sixteen2 + sixteen3;
+        };
+
+        function Gchange() {
+            s1ID.style.backgroundColor = `rgb(${tag[1].value},${tag[3].value},${tag[5].value})`;
+            s1ID.style.color = `rgb(${255 - tag[1].value},${255 - tag[3].value},${255 - tag[5].value})`;
+            document.getElementById("textID").value = `rgb(${tag[1].value},${tag[3].value},${tag[5].value})`;
+            var ten1 = parseInt(`${tag[1].value}`);
+            var ten2 = parseInt(`${tag[3].value}`);
+            var ten3 = parseInt(`${tag[5].value}`);
+            var sixteen1 = ten1.toString(16);//16進位
+            var sixteen2 = ten2.toString(16);
+            var sixteen3 = ten3.toString(16);
+            if (ten1 < 16) sixteen1 = "0" + sixteen1;
+            if (ten2 < 16) sixteen2 = "0" + sixteen2;
+            if (ten3 < 16) sixteen3 = "0" + sixteen3;
+            s1ID.textContent = `#${sixteen1}` + `${sixteen2}` + `${sixteen3}`;
+            document.getElementById("textID1").value = "#" + sixteen1 + sixteen2 + sixteen3;
+        };
+
+        function Bchange() {
+            s1ID.style.backgroundColor = `rgb(${tag[1].value},${tag[3].value},${tag[5].value})`
+            s1ID.style.color = `rgb(${255 - tag[1].value},${255 - tag[3].value},${255 - tag[5].value})`;
+            document.getElementById("textID").value = `rgb(${tag[1].value},${tag[3].value},${tag[5].value})`;
+            var ten1 = parseInt(`${tag[1].value}`);
+            var ten2 = parseInt(`${tag[3].value}`);
+            var ten3 = parseInt(`${tag[5].value}`);
+            var sixteen1 = ten1.toString(16);//16進位
+            var sixteen2 = ten2.toString(16);
+            var sixteen3 = ten3.toString(16);
+            if (ten1 < 16) sixteen1 = "0" + sixteen1;
+            if (ten2 < 16) sixteen2 = "0" + sixteen2;
+            if (ten3 < 16) sixteen3 = "0" + sixteen3;
+            s1ID.textContent = `#${sixteen1}` + `${sixteen2}` + `${sixteen3}`;
+            document.getElementById("textID1").value = "#" + sixteen1 + sixteen2 + sixteen3;
+        };
+    </script>
+
+</body>
+
+</html>
