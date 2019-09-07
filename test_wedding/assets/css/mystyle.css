@@ -1,0 +1,93 @@
+body{
+    font-family: 'Microsoft JhengHei';
+}
+
+/* 頁首、頁尾 陰影 */
+#header,#footer,#contact .box{
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.3)
+}
+
+#header nav ul li a:hover{
+    display: block;
+    height:2em;
+    line-height:2em;
+    outline: 1px solid #000;
+}
+
+/* #intro */
+#intro {
+    background: url(""), url("../../images/intro_1.jpg");
+    background-size: 256px 256px, cover;
+    background-attachment: fixed, fixed;
+    background-position: top left, center center;
+    background-repeat: repeat, no-repeat;
+}
+
+#intro h2{
+    font-size:3em;
+    line-height: 1em;
+}
+
+#intro header{
+    padding-top:1em;
+    background:rgba(0,0,0,0.3);
+    background:linear-gradient(to right,transparent 0%,rgba(0,0,0,0.3) 50%,transparent 100%);
+}
+
+/* One */
+
+#one {
+    background: url(""), url("../../images/one_1.jpg");
+    background-size: 256px 256px, cover;
+    background-attachment: fixed, fixed;
+    background-position: top left, center center;
+    position: relative;
+}
+
+#one .wedding_ring{
+    width:250px;
+    height:200px;
+    background:url(../../images/wedding_ring.png) no-repeat;
+    background-size:contain;
+    position: absolute;
+    right:2rem;
+    top:-4rem;
+}
+
+/* Two */
+
+#two {
+    background: url(""), url("../../images/two_1.jpg");
+    background-size: 256px 256px, cover;
+    background-attachment: fixed, fixed;
+    background-position: top left, center center;
+    position: relative;
+}
+
+#two .wedding_flower{
+    width:600px;
+    height:500px;
+    background: url(../../images/wedding_flower.png) no-repeat;
+    background-size:contain;
+    position: absolute;
+    right: -4em;
+    top: -9em;
+}
+
+#one .content,
+#two .content{
+    box-shadow: 0px 0px 30px rgba(0,0,0,0.5);
+}
+
+/* 送出表單 */
+input[type='submit']{
+    background:#39454B;
+}
+
+input[type='submit']:hover{
+    background:#91a6b1;
+}
+
+#particles-js {
+    pointer-events: none;
+}
